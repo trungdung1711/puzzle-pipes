@@ -11,7 +11,6 @@ class Grid:
             self.__grid[row][col] = pipe
         else:
             raise IndexError("Grid position out of range")
-        
 
 
     def get_pipe(self, row: int, col: int) -> Pipe:
@@ -29,3 +28,11 @@ class Grid:
         for row in self.__grid:
             for pipe in row:
                 pipe.show()
+
+
+    def get_source(self) -> Pipe:
+        return self.__grid[2][2]
+
+
+    def is_goal_state(self) -> bool:
+        return True
