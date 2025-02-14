@@ -44,6 +44,10 @@ class Grid:
 
     def get_source(self) -> 'Pipe':
         return self.__grid[2][2]
+    
+
+    def to_tuple(self):
+        return tuple(tuple(pipe.to_tuple() for pipe in row ) for row in self.__grid)
 
 
     def is_goal_state(self) -> 'bool':

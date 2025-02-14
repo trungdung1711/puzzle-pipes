@@ -61,6 +61,10 @@ class Pipe:
         print(f'[{self.__type.name},{self.__direction.name}]')
 
 
+    def to_tuple(self) -> 'tuple':
+        return (self.__type.value, self.__direction.value)
+
+
     def change_direction(self):
         if self.__direction == Direction.UP:
             self.__direction = Direction.RIGHT
@@ -95,3 +99,8 @@ class Pipe:
             if self.is_connected_with_neighbour(neighbour, direction):
                 neighbours.append(neighbour)
         return neighbours
+    
+
+if __name__ == '__main__':
+    pipe = Pipe(PipeType.L_SHAPE, Direction.UP, (0,0))
+    print(pipe.to_tuple())
