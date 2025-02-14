@@ -3,13 +3,14 @@ from data2 import data2
 from data3 import data3
 from data4 import data4
 from data5 import data5
-
+from data6 import data6
 
 grid1 = data1()
 grid2 = data2()
 grid3 = data3()
 grid4 = data4()
 grid5 = data5()
+grid6 = data6()
 # False
 print("Test 1:")
 print(grid1.is_goal_state())
@@ -25,3 +26,6 @@ print(grid4.is_goal_state())
 # Loop
 print("Test 5:")
 print(grid5.is_goal_state())
+# False
+print('Test 6:')
+print(grid6.is_goal_state())
