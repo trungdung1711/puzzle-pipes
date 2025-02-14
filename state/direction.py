@@ -18,3 +18,16 @@ class Direction(Enum):
 			return Direction.LEFT
 		elif direction == Direction.LEFT:
 			return Direction.RIGHT
+		
+
+	@staticmethod
+	def get_next_location(location: tuple, direction: 'Direction'):
+		row, col = location
+		if direction == Direction.UP:
+			return (row - 1, col)
+		elif direction == Direction.DOWN:
+			return (row + 1, col)
+		elif direction == Direction.LEFT:
+			return (row, col - 1)
+		else:
+			return (row, col + 1)

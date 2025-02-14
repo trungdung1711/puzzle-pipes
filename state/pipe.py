@@ -22,7 +22,7 @@ class Pipe:
             Direction.DOWN: [Direction.LEFT, Direction.DOWN],
             Direction.LEFT: [Direction.UP, Direction.LEFT]
         },
-                PipeType.T_SHAPE : {
+        PipeType.T_SHAPE : {
             Direction.UP: [Direction.DOWN, Direction.LEFT, Direction.RIGHT],
             Direction.RIGHT: [Direction.LEFT, Direction.UP, Direction.DOWN],
             Direction.DOWN: [Direction.UP, Direction.LEFT, Direction.RIGHT],
@@ -31,9 +31,10 @@ class Pipe:
     }
 
 
-    def __init__(self, type: 'PipeType', direction: 'Direction'):
+    def __init__(self, type: 'PipeType', direction: 'Direction', location: tuple):
         self.__type = type
         self.__direction = direction
+        self.__location = location
 
 
     def get_type(self) -> 'PipeType':
@@ -50,6 +51,10 @@ class Pipe:
 
     def set_direction(self, direction: 'Direction'):
         self.__direction = direction
+
+
+    def get_location(self) -> 'tuple':
+        return self.__location
 
 
     def show(self):
@@ -71,7 +76,22 @@ class Pipe:
         return self.PIPE_DICT[self.__type][self.__direction]
 
 
-    def is_connected_with_neighbour(self, neighbour: 'Pipe', move_direction: 'Direction'):
+    def is_connected_with_neighbour(self, neighbour: 'Pipe', move_direction: 'Direction') -> 'bool':
         if Direction.opposite(move_direction) in neighbour.get_can_flow_direction():
             return True
         return False
+    
+
+    def get_connected_pipes(self, grid) -> 'list':
+        neighbours = []
+        possible_directions = self.get_can_flow_direction()
+        for direction in possible_directions:
+            next_location = Direction.get_next_location(self.__location, direction)
+            next_row, next_col = next_location
+            if (next_row < 0 or next_row > 3 or next_col < 0 or next_col > 3):
+                continue
+            # valid next_location
+            neighbour = grid.get_pipe(next_location)
+            if self.is_connected_with_neighbour(neighbour, direction):
+                neighbours.append(neighbour)
+        return neighbours

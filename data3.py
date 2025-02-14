@@ -4,27 +4,27 @@ from state.direction import Direction
 from state.type import PipeType
 
 
-def data1() -> Grid:
+def data3() -> Grid:
     grid = Grid()
     
-    pipe00 = Pipe(PipeType.STRAIGHT_DESTINATION, Direction.UP, (0, 0))
-    pipe01 = Pipe(PipeType.T_SHAPE, Direction.RIGHT, (0, 1))
-    pipe02 = Pipe(PipeType.T_SHAPE, Direction.LEFT, (0, 2))
-    pipe03 = Pipe(PipeType.L_SHAPE, Direction.UP, (0, 3))
+    pipe00 = Pipe(PipeType.L_SHAPE, Direction.RIGHT, (0, 0))
+    pipe01 = Pipe(PipeType.STRAIGHT, Direction.RIGHT, (0, 1))
+    pipe02 = Pipe(PipeType.T_SHAPE, Direction.UP, (0, 2))
+    pipe03 = Pipe(PipeType.L_SHAPE, Direction.DOWN, (0, 3))
 
     pipe10 = Pipe(PipeType.STRAIGHT_DESTINATION, Direction.DOWN, (1, 0))
-    pipe11 = Pipe(PipeType.L_SHAPE, Direction.LEFT, (1, 1))
-    pipe12 = Pipe(PipeType.STRAIGHT, Direction.RIGHT, (1, 2))
+    pipe11 = Pipe(PipeType.L_SHAPE, Direction.RIGHT, (1, 1))
+    pipe12 = Pipe(PipeType.T_SHAPE, Direction.RIGHT, (1, 2))
     pipe13 = Pipe(PipeType.STRAIGHT_DESTINATION, Direction.DOWN, (1, 3))
 
-    pipe20 = Pipe(PipeType.STRAIGHT_DESTINATION, Direction.UP, (2, 0))
-    pipe21 = Pipe(PipeType.T_SHAPE, Direction.UP, (2, 1))
-    pipe22 = Pipe(PipeType.T_SHAPE, Direction.LEFT, (2, 2))
-    pipe23 = Pipe(PipeType.L_SHAPE, Direction.UP, (2, 3))
+    pipe20 = Pipe(PipeType.L_SHAPE, Direction.RIGHT, (2, 0))
+    pipe21 = Pipe(PipeType.L_SHAPE, Direction.UP, (2, 1))
+    pipe22 = Pipe(PipeType.T_SHAPE, Direction.RIGHT, (2, 2))
+    pipe23 = Pipe(PipeType.STRAIGHT_DESTINATION, Direction.RIGHT, (2, 3))
 
     pipe30 = Pipe(PipeType.STRAIGHT_DESTINATION, Direction.DOWN, (3, 0))
-    pipe31 = Pipe(PipeType.T_SHAPE, Direction.RIGHT, (3, 1))
-    pipe32 = Pipe(PipeType.STRAIGHT_DESTINATION, Direction.UP, (3, 2))
+    pipe31 = Pipe(PipeType.STRAIGHT_DESTINATION, Direction.LEFT, (3, 1))
+    pipe32 = Pipe(PipeType.T_SHAPE, Direction.DOWN, (3, 2))
     pipe33 = Pipe(PipeType.STRAIGHT_DESTINATION, Direction.RIGHT, (3, 3))
 
     grid.set_pipe(0, 0, pipe00)
