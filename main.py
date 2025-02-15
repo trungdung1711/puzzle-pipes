@@ -6,6 +6,7 @@ from data5 import data5
 from data6 import data6
 from data7 import data7
 from data8 import data8
+from data9 import data9
 
 from search.problem import *
 from search.node import *
@@ -19,12 +20,16 @@ grid5 = data5() # OK
 grid6 = data6() # no check
 grid7 = data7() # no check
 grid8 = data8() # OK
+grid9 = data9() # OK
 
 
 if __name__ == '__main__':
-    pipe_puzzle_problem = PipePuzzleProblem(grid8)
+    pipe_puzzle_problem = PipePuzzleProblem(grid9)
     solution_node = Search.breadth_first_search(pipe_puzzle_problem)
 
     state = solution_node.get_state()
-    state.print()
-    print(f'Number of actions: {solution_node.get_path_cost()}')
+
+    traverse = solution_node
+    while traverse.get_parent() is not None:
+        print(f"Action: {traverse.get_action()}")
+        traverse = traverse.get_parent()
