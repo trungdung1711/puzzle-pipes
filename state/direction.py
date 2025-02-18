@@ -2,10 +2,10 @@ from enum import Enum
 
 
 class Direction(Enum):
-	U	= 1
-	R	= 2
-	D	= 3
-	L	= 4
+	U	= 0
+	R	= 1
+	D	= 2
+	L	= 3
 
 
 	@staticmethod

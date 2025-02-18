@@ -36,6 +36,7 @@ class Pipe:
         self.__type = type
         self.__direction = direction
         self.__location = location
+        self.__is_wet = False
 
 
     def get_type(self) -> 'PipeType':
@@ -101,6 +102,14 @@ class Pipe:
                 neighbours.append(neighbour)
         return neighbours
     
+
+    def set_wet(self):
+        self.__is_wet = True
+
+
+    def is_wet(self) -> 'bool':
+        return self.__is_wet
+
 
     # def __eq__(self, value):
     #     if isinstance(value, 'Pipe'):

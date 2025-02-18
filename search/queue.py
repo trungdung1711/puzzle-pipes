@@ -24,7 +24,7 @@ class FIFOQueue():
             raise IndexError("Top from an empty queue")
         
 
-    def add(self, node: 'any'):
+    def push(self, node: 'any'):
         self.__dequeue.append(node)
 
 

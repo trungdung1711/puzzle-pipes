@@ -3,6 +3,7 @@ from search.node import Node
 from search.queue import FIFOQueue
 from state.stack import Stack
 from enum import Enum
+import heapq
 
 
 class Result(Enum):
@@ -39,7 +40,7 @@ class Search:
         if problem.is_goal(node.get_state()):
             return node
         frontier = FIFOQueue()
-        frontier.add(node)
+        frontier.push(node)
         reached = set()
         reached.add(node.get_state().to_tuple())
 
@@ -53,7 +54,7 @@ class Search:
                     return child
                 if child_raw_state not in reached:
                     reached.add(child_raw_state)
-                    frontier.add(child)
+                    frontier.push(child)
         return None
     
 
@@ -125,3 +126,41 @@ class Search:
             if result != Result.CUTOFF:
                 return result
         return Result.FAILURE
+    
+
+    # late goal test for optimality?
+    @staticmethod
+    def greedy_best_first_search(problem : 'Problem'):
+        node = Node(problem.get_initial(), None, None, 0)
+        # priority queue
+        frontier = []
+        heapq.heappush(frontier, node)
+        # reached state
+        reached = {}
+        reached[node.get_state().to_tuple()] = node
+
+        while not (len(frontier) == 0):
+            # when we expand, we check for the goal
+
+            print(f'Number of nodes in frontier: {len(frontier)}')
+            node = heapq.heappop(frontier)
+            if problem.is_goal(node.get_state()):
+                return node
+            
+            for child in Search.expand(problem, node):
+                child_state = child.get_state().to_tuple()
+                if child_state not in reached:
+                    reached[child_state] = child
+                    heapq.heappush(frontier, child)
+                else:
+                    # we already met the state before
+                    if child.get_path_cost() < reached[child_state].get_path_cost():
+                        # update a new node (same state in reached)
+                        reached[child_state] = child
+                        heapq.heappush(frontier, child)
+                    else:
+                        # new node's path cost > old node's path cost
+                        # don't expand that child
+                        continue
+            
+        return None

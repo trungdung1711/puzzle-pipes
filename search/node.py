@@ -1,3 +1,6 @@
+from search.heuristic import Heuristic
+
+
 class Node:
     def __init__(self, state: 'any', parent: 'Node', action: 'any', path_cost: int):
         self.__state = state
@@ -45,3 +48,7 @@ class Node:
 
     def get_peek(self):
         return self.__is_peek
+    
+
+    def __lt__(self, other):
+        return Heuristic.simple_heuristic_function(self) < Heuristic.simple_heuristic_function(other)
