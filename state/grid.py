@@ -3,6 +3,7 @@ from state.stack import Stack
 from state.pipe import Pipe
 
 
+# state
 class Grid:
     def __init__(self):
         self.__grid = [[None for _ in range(4)] for _ in range(4)]
@@ -37,7 +38,7 @@ class Grid:
         destination_list = []
         for row in self.__grid:
             for pipe in row:
-                if pipe.get_type() == PipeType.STRAIGHT_DESTINATION:
+                if pipe.get_type() == PipeType.D:
                     destination_list.append(pipe)
         return destination_list
 
@@ -83,3 +84,13 @@ class Grid:
             if pipe not in reached:
                 return False
         return True
+    
+
+    # def __eq__(self, value):
+    #     if isinstance(value, 'Grid'):
+    #         for row in range(4):
+    #             for col in range(4):
+    #                 if (self.__grid[row][col] != value.get_grid()[row][col]):
+    #                     return False
+    #         return True
+    #     return False

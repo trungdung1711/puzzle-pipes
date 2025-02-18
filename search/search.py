@@ -2,7 +2,12 @@ from search.problem import Problem
 from search.node import Node
 from search.queue import FIFOQueue
 from state.stack import Stack
-from time import sleep
+from enum import Enum
+
+
+class Result(Enum):
+    CUTOFF = 0
+    FAILURE = 1
 
 
 class Search:
@@ -20,6 +25,11 @@ class Search:
             new_node = Node(new_state, node, action, path_cost)
             nodes.append(new_node)
         return nodes
+    
+
+    @staticmethod
+    def depth(node : 'Node'):
+        return node.get_path_cost()
 
 
     @staticmethod
@@ -72,3 +82,46 @@ class Search:
                     reached.add(child.get_state().to_tuple())
                     frontier.push(child)
         return None
+    
+
+    @staticmethod
+    def is_cycle(node : Node) -> 'bool':
+        current_state = node.get_state().to_tuple()
+        traverse = node.get_parent()
+        while traverse is not None:
+            if traverse.get_state().to_tuple() == current_state:
+                return True
+            traverse = traverse.get_parent()
+        return False
+    
+
+    @staticmethod
+    def depth_limit_search(problem: Problem, l : int):
+        node = Node(problem.get_initial(), None, None, 0)
+        frontier = Stack()
+        frontier.push(node)
+        result = Result.FAILURE
+
+        while not frontier.is_empty():
+            print(f'Number of nodes in frontier: {frontier.size()}')
+            node = frontier.pop()
+            if problem.is_goal(node.get_state()):
+                return node
+            if Search.depth(node) > l:
+                # there can be solution at deeper depth
+                # doesn't add any child node
+                result = Result.CUTOFF
+            elif not Search.is_cycle(node):
+                for child in reversed(Search.expand(problem, node)):
+                    frontier.push(child)
+        return result
+    
+
+    @staticmethod
+    def iterative_deepening_search(problem : Problem, limit : int):
+        for depth in range(limit):
+            print(f'At depth {depth}')
+            result = Search.depth_limit_search(problem, depth)
+            if result != Result.CUTOFF:
+                return result
+        return Result.FAILURE

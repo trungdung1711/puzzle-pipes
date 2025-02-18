@@ -2,32 +2,32 @@ from enum import Enum
 
 
 class Direction(Enum):
-	UP 		= 1
-	RIGHT	= 2
-	DOWN 	= 3
-	LEFT	= 4
+	U	= 1
+	R	= 2
+	D	= 3
+	L	= 4
 
 
 	@staticmethod
 	def opposite(direction: 'Direction') -> 'Direction':
-		if direction == Direction.UP:
-			return Direction.DOWN
-		elif direction == Direction.DOWN:
-			return Direction.UP
-		elif direction == Direction.RIGHT:
-			return Direction.LEFT
-		elif direction == Direction.LEFT:
-			return Direction.RIGHT
+		if direction == Direction.U:
+			return Direction.D
+		elif direction == Direction.D:
+			return Direction.U
+		elif direction == Direction.R:
+			return Direction.L
+		elif direction == Direction.L:
+			return Direction.R
 		
 
 	@staticmethod
 	def get_next_location(location: tuple, direction: 'Direction'):
 		row, col = location
-		if direction == Direction.UP:
+		if direction == Direction.U:
 			return (row - 1, col)
-		elif direction == Direction.DOWN:
+		elif direction == Direction.D:
 			return (row + 1, col)
-		elif direction == Direction.LEFT:
+		elif direction == Direction.L:
 			return (row, col - 1)
 		else:
 			return (row, col + 1)

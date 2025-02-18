@@ -2,31 +2,32 @@ from state.direction import Direction
 from state.type import PipeType
 
 
+# make up a state
 class Pipe:
     PIPE_DICT = {
-        PipeType.STRAIGHT_DESTINATION : {
-            Direction.UP : [Direction.DOWN],
-            Direction.RIGHT : [Direction.LEFT],
-            Direction.DOWN : [Direction.UP],
-            Direction.LEFT : [Direction.RIGHT]
+        PipeType.D : {
+            Direction.U : [Direction.D],
+            Direction.R : [Direction.L],
+            Direction.D : [Direction.U],
+            Direction.L : [Direction.R]
         },
-        PipeType.STRAIGHT : {
-            Direction.UP : [Direction.UP, Direction.DOWN],
-            Direction.RIGHT : [Direction.LEFT, Direction.RIGHT],
-            Direction.DOWN : [Direction.UP, Direction.DOWN],
-            Direction.LEFT : [Direction.LEFT, Direction.RIGHT]
+        PipeType.S : {
+            Direction.U : [Direction.U, Direction.D],
+            Direction.R : [Direction.L, Direction.R],
+            Direction.D : [Direction.U, Direction.D],
+            Direction.L : [Direction.L, Direction.R]
         },
-        PipeType.L_SHAPE : {
-            Direction.UP: [Direction.RIGHT, Direction.UP],
-            Direction.RIGHT: [Direction.DOWN, Direction.RIGHT],
-            Direction.DOWN: [Direction.LEFT, Direction.DOWN],
-            Direction.LEFT: [Direction.UP, Direction.LEFT]
+        PipeType.L : {
+            Direction.U: [Direction.R, Direction.U],
+            Direction.R: [Direction.D, Direction.R],
+            Direction.D: [Direction.L, Direction.D],
+            Direction.L: [Direction.U, Direction.L]
         },
-        PipeType.T_SHAPE : {
-            Direction.UP: [Direction.DOWN, Direction.LEFT, Direction.RIGHT],
-            Direction.RIGHT: [Direction.LEFT, Direction.UP, Direction.DOWN],
-            Direction.DOWN: [Direction.UP, Direction.LEFT, Direction.RIGHT],
-            Direction.LEFT: [Direction.RIGHT, Direction.UP, Direction.DOWN]
+        PipeType.T : {
+            Direction.U: [Direction.D, Direction.L, Direction.R],
+            Direction.R: [Direction.L, Direction.U, Direction.D],
+            Direction.D: [Direction.U, Direction.L, Direction.R],
+            Direction.L: [Direction.R, Direction.U, Direction.D]
         }
     }
 
@@ -66,14 +67,14 @@ class Pipe:
 
 
     def change_direction(self):
-        if self.__direction == Direction.UP:
-            self.__direction = Direction.RIGHT
-        elif self.__direction == Direction.RIGHT:
-            self.__direction = Direction.DOWN
-        elif self.__direction == Direction.DOWN:
-            self.__direction = Direction.LEFT
-        elif self.__direction == Direction.LEFT:
-            self.__direction = Direction.UP
+        if self.__direction == Direction.U:
+            self.__direction = Direction.R
+        elif self.__direction == Direction.R:
+            self.__direction = Direction.D
+        elif self.__direction == Direction.D:
+            self.__direction = Direction.L
+        elif self.__direction == Direction.L:
+            self.__direction = Direction.U
 
 
     def get_can_flow_direction(self) -> 'list':
@@ -101,6 +102,11 @@ class Pipe:
         return neighbours
     
 
+    # def __eq__(self, value):
+    #     if isinstance(value, 'Pipe'):
+    #         return self.get_type() == value.get_type() and self.get_direction() == value.get_direction()
+        
+
 if __name__ == '__main__':
-    pipe = Pipe(PipeType.L_SHAPE, Direction.UP, (0,0))
+    pipe = Pipe(PipeType.L, Direction.U, (0,0))
     print(pipe.to_tuple())
