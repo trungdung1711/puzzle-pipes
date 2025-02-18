@@ -25,9 +25,8 @@ grid9 = data9() # OK
 
 if __name__ == '__main__':
     pipe_puzzle_problem = PipePuzzleProblem(grid9)
-    solution_node = Search.breadth_first_search(pipe_puzzle_problem)
-
-    state = solution_node.get_state()
+    # solution_node = Search.breadth_first_search(pipe_puzzle_problem)
+    solution_node = Search.depth_first_search(pipe_puzzle_problem)
 
     traverse = solution_node
     while traverse.get_parent() is not None:

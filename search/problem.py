@@ -1,8 +1,9 @@
 from state.grid import Grid
 from copy import *
+from abc import ABC
 
 
-class Problem:
+class Problem(ABC):
     def __init__(self, initial: 'any'):
         self.__initial = initial
 
