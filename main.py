@@ -11,36 +11,46 @@ from data.data10 import data10
 from data.data11 import data11
 from data.data12 import data12
 from data.data13 import data13
+from data.data14 import data14
+from data.data15 import data15
+from data.data16 import data16
 
 from search.problem import *
 from search.node import *
 from search.search import *
 from game.game import display
-                    # BFS           DLS             GBFS
-grid1 = data1()     # no check                      OK
-grid2 = data2()     # OK                            OK
-grid3 = data3()     # OK            OK              OK
-grid4 = data4()     # OK                            OK
-grid5 = data5()     # OK            OK              OK
-grid6 = data6()     # no check      
-grid7 = data7()     # no check      
-grid8 = data8()     # OK            OK              OK
-grid9 = data9()     # OK                            OK
-grid10 = data10()   #               OK              OK
-grid11 = data11()   #                               
-grid12 = data12()   #                               OK
-grid13 = data13()   #
+from search.heuristic import Heuristic
+
+                    #      Uninformed                      Informed    
+                    # BFS           DLS             GBFS_v1         GBFS_v2
+grid1 = data1()     # no check                      OK                  OK
+grid2 = data2()     # OK                            OK                  OK
+grid3 = data3()     # OK            OK              OK                  OK
+grid4 = data4()     # OK                            OK                  OK
+grid5 = data5()     # OK            OK              OK                  OK
+grid6 = data6()     # no check                                          OK
+grid7 = data7()     # no check                                          OK
+grid8 = data8()     # OK            OK              OK                  OK
+grid9 = data9()     # OK                            OK                  OK
+grid10 = data10()   #               OK              OK                  OK
+grid11 = data11()   #                                                   
+grid12 = data12()   #                               OK                  OK
+grid13 = data13()   #                               OK                  OK [ better solution ]
+# real pipe from https://www.puzzle-pipes.com/
+grid14 = data14()   #                               OK                  OK [ faster ]
+grid15 = data15()   #                               OK [ long time]     OK [ faster and better solution]
+grid16 = data16()   #                               OK                  OK [ faster ]
 
 
 if __name__ == '__main__':
 
-    pipe_puzzle_problem = PipePuzzleProblem(grid12)
+    pipe_puzzle_problem = PipePuzzleProblem(grid16)
 
     # solution_node = Search.breadth_first_search(pipe_puzzle_problem)
     # solution_node = Search.depth_first_search(pipe_puzzle_problem)
     # solution_node = Search.iterative_deepening_search(pipe_puzzle_problem, limit=30)
     # solution_node = Search.depth_limit_search(pipe_puzzle_problem, l = 7)
-    solution_node = Search.greedy_best_first_search(pipe_puzzle_problem)
+    solution_node = Search.greedy_best_first_search(pipe_puzzle_problem, Heuristic.heuristic_function_v0)
     # if isinstance(solution_node, Node):
     #     traverse = solution_node
     #     while traverse.get_parent() is not None:

@@ -130,11 +130,11 @@ class Search:
 
     # late goal test for optimality?
     @staticmethod
-    def greedy_best_first_search(problem : 'Problem'):
+    def greedy_best_first_search(problem : 'Problem', heuristic : 'function'):
         node = Node(problem.get_initial(), None, None, 0)
         # priority queue
         frontier = []
-        heapq.heappush(frontier, node)
+        heapq.heappush(frontier, (heuristic(node), node))
         # reached state
         reached = {}
         reached[node.get_state().to_tuple()] = node
@@ -143,7 +143,7 @@ class Search:
             # when we expand, we check for the goal
 
             print(f'Number of nodes in frontier: {len(frontier)}')
-            node = heapq.heappop(frontier)
+            _, node = heapq.heappop(frontier)
             if problem.is_goal(node.get_state()):
                 return node
             
@@ -151,13 +151,13 @@ class Search:
                 child_state = child.get_state().to_tuple()
                 if child_state not in reached:
                     reached[child_state] = child
-                    heapq.heappush(frontier, child)
+                    heapq.heappush(frontier, (heuristic(child), child))
                 else:
                     # we already met the state before
                     if child.get_path_cost() < reached[child_state].get_path_cost():
                         # update a new node (same state in reached)
                         reached[child_state] = child
-                        heapq.heappush(frontier, child)
+                        heapq.heappush(frontier, (heuristic(child), child))
                     else:
                         # new node's path cost > old node's path cost
                         # don't expand that child

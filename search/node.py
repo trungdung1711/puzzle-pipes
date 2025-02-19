@@ -8,6 +8,7 @@ class Node:
         self.__action = action
         self.__path_cost = path_cost
         self.__is_peek = False
+        self.__heuristic = None
 
 
     def get_state(self) -> 'any':
@@ -50,5 +51,9 @@ class Node:
         return self.__is_peek
     
 
+    def set_heuristic(self, heuristic : 'function'):
+        self.__heuristic = heuristic
+    
+
     def __lt__(self, other):
-        return Heuristic.simple_heuristic_function(self) < Heuristic.simple_heuristic_function(other)
+        return Heuristic.heuristic_function_v1(self) < Heuristic.heuristic_function_v1(other)

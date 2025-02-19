@@ -103,6 +103,24 @@ class Pipe:
         return neighbours
     
 
+    def get_connection_factor(self, grid) -> 'int':
+        '''
+            * Based on get_connected_pipes(grid)
+        '''
+        connection_factor = 0
+        possible_directions = self.get_can_flow_direction()
+        for direction in possible_directions:
+            next_location = Direction.get_next_location(self.__location, direction)
+            next_row, next_col = next_location
+            if (next_row < 0 or next_row > 3 or next_col < 0 or next_col > 3):
+                continue
+            # valid next_location
+            neighbour = grid.get_pipe(next_location)
+            if self.is_connected_with_neighbour(neighbour, direction):
+                connection_factor += 1
+        return connection_factor
+    
+
     def set_wet(self):
         self.__is_wet = True
 

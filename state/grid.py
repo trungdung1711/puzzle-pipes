@@ -108,6 +108,15 @@ class Grid:
                     reached.add(neighbour)
                     number_wet_pipe += 1
         return number_wet_pipe
+    
+
+    def get_connection_factor(self) -> 'int':
+        connection_factor = 0
+        for row in self.get_grid():
+            for pipe in row:
+                connection_factor += pipe.get_connection_factor(self)
+
+        return connection_factor
 
 
     # def __eq__(self, value):
