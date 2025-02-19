@@ -25,13 +25,15 @@ This project is a Python-based solver (search algorithm) for pipe puzzles. The s
 
 ## Usage
 
-1. Prepare your puzzle input file in the specified format in /data and also import them into main.py to create the state of a grid
-2. Choose different types of search algorithms or heuristic function (h(n) if informed search) and get the solution node (containing the goal state)
-3. Run the solver:
+1. Prepare your puzzle input file in the specified format in /data and also import them into main.py to create the state of a grid:
+    ```sh
+    cp data1.py dataxx.py
+3. Choose different types of search algorithms or heuristic function (h(n) if informed search) and get the solution node (containing the goal state)
+4. Run the solver:
     ```sh
     python main.py
     ```
-4. View the solution output by simple pygame (in development)
+5. View the solution output by simple pygame (in development)
 
 ## Contributing
 
