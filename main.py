@@ -18,9 +18,9 @@ from search.search import *
 from game.game import display
                     # BFS           DLS             GBFS
 grid1 = data1()     # no check                      OK
-grid2 = data2()     # OK            
+grid2 = data2()     # OK                            OK
 grid3 = data3()     # OK            OK              OK
-grid4 = data4()     # OK
+grid4 = data4()     # OK                            OK
 grid5 = data5()     # OK            OK              OK
 grid6 = data6()     # no check      
 grid7 = data7()     # no check      
@@ -34,7 +34,7 @@ grid13 = data13()   #
 
 if __name__ == '__main__':
 
-    pipe_puzzle_problem = PipePuzzleProblem(grid3)
+    pipe_puzzle_problem = PipePuzzleProblem(grid12)
 
     # solution_node = Search.breadth_first_search(pipe_puzzle_problem)
     # solution_node = Search.depth_first_search(pipe_puzzle_problem)

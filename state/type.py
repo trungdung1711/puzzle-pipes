@@ -2,7 +2,7 @@ from enum import Enum
 
 
 class PipeType(Enum):
-	D	= 1
-	S	= 2
-	L	= 3
-	T	= 4
+	D	= 0
+	S	= 1
+	L	= 2
+	T	= 3

@@ -60,7 +60,7 @@ class Pipe:
 
 
     def show(self):
-        print(f'[{self.__type.name},{self.__direction.name}]')
+        print(f'[{self.__type.name},{self.__direction.value}]')
 
 
     def to_tuple(self) -> 'tuple':
