@@ -22,26 +22,27 @@ from search.search import *
 from game.game import display
 from search.heuristic import Heuristic
 
-                    #           Uninformed                   Informed    
-                    # BFS           DLS             GBFS_v1                     GBFS_v2
-grid1 = data1()     #                               OK                              OK
-grid2 = data2()     # OK                            OK                              OK
-grid3 = data3()     # OK            OK              OK                              OK
-grid4 = data4()     # OK                            OK                              OK
-grid5 = data5()     # OK            OK              OK                              OK
-grid6 = data6()     #                                                               OK
-grid7 = data7()     #                                                               OK
-grid8 = data8()     # OK            OK              OK                              OK
-grid9 = data9()     # OK                            OK                              OK
-grid10 = data10()   #               OK              OK                              OK
-grid12 = data12()   #                               OK                              OK
-grid13 = data13()   #                               OK                              OK [ better solution ]
+                    # problem with negative h(n) https://stackoverflow.com/questions/30067813/are-heuristic-functions-that-produce-negative-values-inadmissible
+                    #           Uninformed                                           Informed    
+                    # BFS           DLS             GBFS1_v0(-)                GBFS1_v1 (1/)                       GBFS2_v0(-)                                 GBFS2_v1(1/)              A* [ negative h(n) -> causing problem]          A* [ g(n) and possitive h(n) -> still causing problem ]
+grid1 = data1()     #                               OK                                   [ out of memory ]             OK                                        OK [ faster ]                           [ out of memory ]                         [ out of memory ]
+grid2 = data2()     # OK                            OK                                OK                               OK                                        OK                                   OK                                        OK
+grid3 = data3()     # OK            OK              OK                                OK                               OK                                        OK                                   OK                                        OK
+grid4 = data4()     # OK                            OK                                OK                               OK                                        OK                                   OK                                        OK
+grid5 = data5()     # OK            OK              OK                                OK                               OK                                        OK                                   OK                                        OK
+grid6 = data6()     #                                                                 OK                               OK                                        OK                                   OK                                        OK
+grid7 = data7()     #                                                                                                  OK                                        OK                                   OK [ long time ]                          OK [ out of memory ]
+grid8 = data8()     # OK            OK              OK                                OK                               OK                                        OK                                   OK                                           [ out of memory ]
+grid9 = data9()     # OK                            OK                                OK                               OK                                        OK                                   OK                                        OK [ out of memory ]
+grid10 = data10()   #               OK              OK                                OK                               OK                                        OK                                   OK                                        OK
+grid12 = data12()   #                               OK                                OK                               OK                                        OK                                   OK                                        OK [ out of memory ]
+grid13 = data13()   #                               OK                                OK [ long time]                  OK [ faster and better solution ]         OK [ faster and better solution ]    OK [ longer but better solution]          OK [ out of memory ]
 # real puzzles       from https://www.puzzle-pipes.com/
-grid11 = data11()   #                               OK []                           OK [ faster ]
-grid14 = data14()   #                               OK                              OK [ faster ]
-grid15 = data15()   #                               OK [ long time]                 OK [ faster and better solution ]
-grid16 = data16()   #                               OK                              OK [ faster ]
-grid17 = data17()   #                               OK [ better solution]           OK
+grid11 = data11()   #                               OK []                             OK                               OK [ faster ]                             OK                                      [ out of memory ]                         [ out of memory ]
+grid14 = data14()   #                               OK                                OK                               OK [ faster ]                             OK                                   OK [ out of memory ]                         [ out of memory ]
+grid15 = data15()   #                               OK [ long time]                   OK [ faster time ]               OK [ faster and better solution ]         OK [ faster and better solution ]       [ out of memory ]                         [ out of memory ]
+grid16 = data16()   #                               OK                                OK                               OK [ faster ]                             OK                                   OK                                           [ out of memory ]
+grid17 = data17()   #                               OK [ better solution]             OK [ better solution]            OK                                        OK                                   OK                                           [ out of memory ]
 
 if __name__ == '__main__':
 
@@ -51,7 +52,12 @@ if __name__ == '__main__':
     # solution_node = Search.depth_first_search(pipe_puzzle_problem)
     # solution_node = Search.iterative_deepening_search(pipe_puzzle_problem, limit=30)
     # solution_node = Search.depth_limit_search(pipe_puzzle_problem, l = 7)
-    solution_node = Search.greedy_best_first_search(pipe_puzzle_problem, Heuristic.heuristic_function_v0)
+    # solution_node = Search.best_first_search(pipe_puzzle_problem, evaluation_function=Heuristic.heuristic_function_v1)
+    # solution_node = Search.best_first_search(pipe_puzzle_problem, evaluation_function=Heuristic.A_star_evaluation_function_1_v0)
+    # solution_node = Search.best_first_search(pipe_puzzle_problem, evaluation_function=Heuristic.heuristic_function_1_v1)
+    # solution_node = Search.best_first_search(pipe_puzzle_problem, evaluation_function=Heuristic.heuristic_function_2_v1)
+    solution_node = Search.best_first_search(pipe_puzzle_problem, evaluation_function=Heuristic.A_star_evaluation_function_2_v0)
+
     # if isinstance(solution_node, Node):
     #     traverse = solution_node
     #     while traverse.get_parent() is not None:
