@@ -24,7 +24,7 @@ from search.heuristic import Heuristic
 
                     # problem with negative h(n) https://stackoverflow.com/questions/30067813/are-heuristic-functions-that-produce-negative-values-inadmissible
                     #           Uninformed                                           Informed    
-                    # BFS           DLS             GBFS1_v0(-)                GBFS1_v1 (1/)                       GBFS2_v0(-)                                 GBFS2_v1(1/)              A* [ negative h(n) -> causing problem]          A* [ g(n) and possitive h(n) -> still causing problem ]
+                    # BFS           DLS             GBFS1_v0(-)                GBFS1_v1 (1/)                       GBFS2_v0(-)                                 GBFS2_v1_v2(1/)              A* [ negative h(n) -> causing problem]          A* [ g(n) and possitive h(n) -> still causing problem ]
 grid1 = data1()     #                               OK                                   [ out of memory ]             OK                                        OK [ faster ]                           [ out of memory ]                         [ out of memory ]
 grid2 = data2()     # OK                            OK                                OK                               OK                                        OK                                   OK                                        OK
 grid3 = data3()     # OK            OK              OK                                OK                               OK                                        OK                                   OK                                        OK
@@ -56,7 +56,9 @@ if __name__ == '__main__':
     # solution_node = Search.best_first_search(pipe_puzzle_problem, evaluation_function=Heuristic.A_star_evaluation_function_1_v0)
     # solution_node = Search.best_first_search(pipe_puzzle_problem, evaluation_function=Heuristic.heuristic_function_1_v1)
     # solution_node = Search.best_first_search(pipe_puzzle_problem, evaluation_function=Heuristic.heuristic_function_2_v1)
-    solution_node = Search.best_first_search(pipe_puzzle_problem, evaluation_function=Heuristic.A_star_evaluation_function_2_v0)
+    # solution_node = Search.best_first_search(pipe_puzzle_problem, evaluation_function=Heuristic.A_star_evaluation_function_2_v0)
+    solution_node = Search.best_first_search(pipe_puzzle_problem, evaluation_function=Heuristic.heuristic_function_2_v2)
+
 
     # if isinstance(solution_node, Node):
     #     traverse = solution_node

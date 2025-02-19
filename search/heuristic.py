@@ -43,6 +43,16 @@ class Heuristic:
     
 
     @staticmethod
+    def heuristic_function_2_v2(node : any) -> 'int':
+        '''
+            - inadmissible heuristic 
+            (overestimate the value, goal state does not mean all pipes are connected)
+            - Calculate the substraction of the connection factor of goal state and
+              connection factor of the current node
+        '''
+        return node.get_state().get_connection_factor_full() - node.get_state().get_connection_factor()
+
+    @staticmethod
     def A_star_evaluation_function_1_v0(node : any) -> 'float':
         '''
             - The evaluation f(n) for A* search which is

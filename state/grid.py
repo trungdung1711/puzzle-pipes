@@ -115,7 +115,14 @@ class Grid:
         for row in self.get_grid():
             for pipe in row:
                 connection_factor += pipe.get_connection_factor(self)
+        return connection_factor
+    
 
+    def get_connection_factor_full(self) -> 'int':
+        connection_factor = 0
+        for row in self.get_grid():
+            for pipe in row:
+                connection_factor += pipe.get_number_of_flow_direction()
         return connection_factor
 
 

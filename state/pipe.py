@@ -121,6 +121,14 @@ class Pipe:
         return connection_factor
     
 
+    def get_number_of_flow_direction(self) -> 'int':
+        if self.__type == PipeType.D:
+            return 1
+        elif self.__type == PipeType.L or self.__type == PipeType.S:
+            return 2
+        return 3
+    
+
     def set_wet(self):
         self.__is_wet = True
 
