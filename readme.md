@@ -31,9 +31,10 @@ This project is a Python-based solver (search algorithm) for pipe puzzles. The s
 3. Choose different types of search algorithms or heuristic function (h(n) if informed search) and get the solution node (containing the goal state)
 4. Run the solver:
     ```sh
-    python main.py
+    python main.py solve -d 6 -a 5 -e 5 -i true -s true
+    python main.py --help or python main.py solve --help for more information
     ```
-5. View the solution output by simple pygame (in development)
+5. View the solution output by simple pygame and matplotlib
 
 ## Contributing
 
