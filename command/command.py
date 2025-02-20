@@ -6,6 +6,7 @@ from util import Stack
 from util import output
 from util import Panel
 from util import Align
+import game
 
 
 @click.group()
@@ -13,6 +14,7 @@ def cli():
     pass
 
 
+# python main.py solve -d 13 -a 5 -e 5 -i true
 @cli.command()
 @click.option('-d', '--data',       default = 1,            required = True,    type = click.IntRange(1, 17),     help = 'The data used to run the search algorithm, in /data')
 @click.option('-a', '--algorithm',  default = 1,            required = True,    type = click.IntRange(1, 5) ,     help = 'Search algorithm including BrFS[1], DFS[2], DLS[3], IDS[4], BFS[5]')
@@ -71,7 +73,7 @@ def solve(data : 'int', algorithm : 'int', ef : 'int', depth : 'int', limit : 'i
 
     else:
         # solution found
-        done = Align.center("[bold magenta]:white_check_mark: SEARCH ALGORITHM COMPLETE :white_check_mark:[/bold magenta]")
+        done = Align.center("[bold magenta]:white_check_mark: SEARCH ALGORITHM COMPLETED :white_check_mark:[/bold magenta]")
         output.print(Panel(done, title=":dart: Done!", border_style="bold green"))
         actions = Stack()
         actions_ui = Stack()
@@ -86,15 +88,15 @@ def solve(data : 'int', algorithm : 'int', ef : 'int', depth : 'int', limit : 'i
             location = actions.pop()
             output.print(f'Click the pipe at location [yellow]({location[0]}, {location[1]})[/yellow]')
 
-    if interactive == True:
+    if interactive is True:
         # todo: showing UI
-        pass
+        game.ui(Data.data[data](), actions_ui)
 
 
     # - Show time and space information by UI
-    if statistic == True:
+    if statistic is True:
         # todo: get the time and memory to create statistic
         pass
 
-    end = Align.center(":bust_in_silhouette: [green]Trung Dung[/green] | :id: [yellow]2210573[/yellow] | :school: [blue]HCMUT[/blue]")
+    end = Align.center(":bust_in_silhouette: [green]trungdung1711[/green] | :id: [yellow]2210573[/yellow] | :school: [blue]HCMUT[/blue]")
     output.print(Panel(end, title=":heart: Thank you :heart:", border_style="yellow"))

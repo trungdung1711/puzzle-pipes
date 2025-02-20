@@ -67,7 +67,7 @@ class Pipe:
         return (self.__type.value, self.__direction.value)
 
 
-    def change_direction(self):
+    def right_rotate(self):
         if self.__direction == Direction.U:
             self.__direction = Direction.R
         elif self.__direction == Direction.R:
@@ -76,6 +76,17 @@ class Pipe:
             self.__direction = Direction.L
         elif self.__direction == Direction.L:
             self.__direction = Direction.U
+
+
+    def left_rotate(self):
+        if self.__direction == Direction.U:
+            self.__direction = Direction.L
+        elif self.__direction == Direction.R:
+            self.__direction = Direction.U
+        elif self.__direction == Direction.D:
+            self.__direction = Direction.R
+        elif self.__direction == Direction.L:
+            self.__direction = Direction.D
 
 
     def get_can_flow_direction(self) -> 'list':

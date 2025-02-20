@@ -23,7 +23,7 @@ class PipePuzzleProblem(Problem):
 
     def result(self, state : 'Grid', action : 'tuple'):
         new_state = deepcopy(state)
-        new_state.get_pipe(action).change_direction()
+        new_state.get_pipe(action).right_rotate()
         return new_state
     
 

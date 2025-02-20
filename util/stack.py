@@ -27,3 +27,14 @@ class Stack:
 
     def size(self):
         return len(self.__items)
+    
+
+    def get(self, index : int):
+        if index >= self.size() or index < 0:
+            raise IndexError('Invalid index')
+        return self.__items[index]
+    
+
+    def reversed(self) -> 'list':
+        # shallow copy
+        return list(reversed(self.__items))
