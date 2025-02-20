@@ -11,6 +11,9 @@ BUTTON_RECT_LEFT = pygame.Rect(200, 525, BUTTON_SIZE, BUTTON_SIZE)
 BUTTON_RECT_RIGHT = pygame.Rect(350, 525, BUTTON_SIZE, BUTTON_SIZE)
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
+YELLOW = (229, 229, 16)
+BLUE = (24, 24, 129)
+STEP_LOCATION = (100, 50)
 IMAGES = {
     'D' : pygame.image.load('./game/images/D.PNG'),
     'L' : pygame.image.load('./game/images/L.PNG'),

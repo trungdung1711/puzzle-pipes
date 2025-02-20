@@ -37,6 +37,7 @@ def start_button(window : 'Surface', grid : 'Grid', action_list : 'list'):
         right_rotate(grid, action_list[index])
         window.fill(WHITE)
         draw_grid(window, grid)
+        draw_step(window)
         pygame.display.flip()
         pygame.time.delay(500)
         current_action_index += 1
@@ -48,6 +49,7 @@ def reverse_button(window : 'Surface', grid : 'Grid', action_list : 'list'):
         left_rotate(grid, action_list[current_action_index - 1])
         window.fill(WHITE)
         draw_grid(window, grid)
+        draw_step(window)
         pygame.display.flip()
         pygame.time.delay(500)
         current_action_index -= 1
@@ -66,6 +68,7 @@ def right_button(window : 'Surface', grid : 'Grid', action_list : 'list'):
     draw_right_button(window)
     draw_start_button(window)
     draw_reverse_button(window)
+    draw_step(window)
     pygame.display.flip()
     pygame.time.delay(500)
 
@@ -83,5 +86,12 @@ def left_button(window : 'Surface', grid : 'Grid', action_list : 'list'):
     draw_right_button(window)
     draw_start_button(window)
     draw_reverse_button(window)
+    draw_step(window)
     pygame.display.flip()
     pygame.time.delay(500)
+
+
+def draw_step(window : 'Surface'):
+    font = pygame.font.Font(None, 30)
+    step = font.render('Step: ' + str(current_action_index), True, BLUE)
+    window.blit(step, STEP_LOCATION)

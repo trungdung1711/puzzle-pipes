@@ -20,7 +20,7 @@ from util import output
 # grid14 = data14()   #                               OK                                OK                               OK [ faster ]                             OK                                   OK [ out of memory ]                         [ out of memory ]
 # grid15 = data15()   #                               OK [ long time]                   OK [ faster time ]               OK [ faster and better solution ]         OK [ faster and better solution ]       [ out of memory ]                         [ out of memory ]
 # grid16 = data16()   #                               OK                                OK                               OK [ faster ]                             OK                                   OK                                           [ out of memory ]
-# grid17 = data17()   #                               OK [ better solution]             OK [ better solution]            OK                                        OK                                   OK                                           [ out of memory ]
+# grid17 = data17()   #                               OK [ better solution]             OK [ better solution]            OK                                        OK                                   OK                                         OK
 
 
 if __name__ == '__main__':

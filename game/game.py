@@ -40,7 +40,7 @@ def running(window : 'Surface', grid : 'Grid', action_list : 'list'):
 
                 elif BUTTON_RECT_LEFT.collidepoint(event.pos):
                     left_button(window, grid, action_list)
-                    
+
                 elif location:
                     right_rotate(grid, location)
 
@@ -50,6 +50,7 @@ def running(window : 'Surface', grid : 'Grid', action_list : 'list'):
         draw_reverse_button(window)
         draw_right_button(window)
         draw_left_button(window)
+        draw_step(window)
         pygame.display.flip()
     pygame.quit()
     

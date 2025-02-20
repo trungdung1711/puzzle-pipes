@@ -6,6 +6,9 @@ from enum import Enum
 import heapq
 
 
+frontier_size = 0
+
+
 class Result(Enum):
     CUTOFF = 0
     FAILURE = 1
@@ -35,6 +38,8 @@ class Search:
 
     @staticmethod
     def breadth_first_search(problem : Problem) -> 'Node':
+        global frontier_size
+
         node = Node(problem.get_initial(), None, None, 0)
 
         if problem.is_goal(node.get_state()):
@@ -51,6 +56,7 @@ class Search:
             for child in Search.expand(problem, node):
                 child_raw_state = child.get_state().to_tuple()
                 if problem.is_goal(child.get_state()):
+                    frontier_size = frontier.size()
                     return child
                 if child_raw_state not in reached:
                     reached.add(child_raw_state)
@@ -60,6 +66,8 @@ class Search:
 
     @staticmethod
     def depth_first_search(problem : Problem) -> 'Node':
+        global frontier_size
+
         node = Node(problem.get_initial(), None, None, 0)
 
         if problem.is_goal(node.get_state()):
@@ -73,11 +81,9 @@ class Search:
             print(f'Number of nodes in frontier: {frontier.size()}')
 
             node = frontier.pop()
-            print (node.get_action())
-            print(node.get_path_cost())
-            value = input("OK?")
             for child in reversed(Search.expand(problem, node)):
                 if problem.is_goal(child.get_state()):
+                    frontier_size = frontier.size()
                     return child
                 if child.get_state().to_tuple() not in reached:
                     reached.add(child.get_state().to_tuple())
@@ -98,6 +104,8 @@ class Search:
 
     @staticmethod
     def depth_limit_search(problem: Problem, l : int):
+        global frontier_size
+
         node = Node(problem.get_initial(), None, None, 0)
         frontier = Stack()
         frontier.push(node)
@@ -107,6 +115,7 @@ class Search:
             print(f'Number of nodes in frontier: {frontier.size()}')
             node = frontier.pop()
             if problem.is_goal(node.get_state()):
+                frontier_size = frontier.size()
                 return node
             if Search.depth(node) > l:
                 # there can be solution at deeper depth
@@ -132,6 +141,8 @@ class Search:
     # late goal test for optimality?
     @staticmethod
     def best_first_search(problem : 'Problem', evaluation_function : 'function'):
+        global frontier_size
+
         node = Node(problem.get_initial(), None, None, 0)
         frontier = []
         heapq.heappush(frontier, (evaluation_function(node), node))
@@ -142,6 +153,7 @@ class Search:
             print(f'Number of nodes in frontier: {len(frontier)}')
             _, node = heapq.heappop(frontier)
             if problem.is_goal(node.get_state()):
+                frontier_size = len(frontier)
                 return node
             
             for child in Search.expand(problem, node):
