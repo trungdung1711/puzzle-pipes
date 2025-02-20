@@ -76,3 +76,16 @@ class Heuristic:
             - f(n): estimated cost of the best path (g(n))that continues from n to a goal (h(n))
         '''
         return node.get_path_cost() + Heuristic.heuristic_function_2_v1(node)
+    
+
+    @staticmethod
+    def A_start_evaluation_function_2_v1(node : any) -> 'int':
+        '''
+            - The evaluation f(n) for A* search which is
+            f(n) = g(n) + h(n)
+            - g(n): path cost from initial state to node n
+            - h(n): estimated cost of the shortest path from n to 
+            goal state (no overestimate) - using heuristic function 2 version 2
+            - f(n): estimated cost of the best path (g(n))that continues from n to a goal (h(n))
+        '''
+        return node.get_path_cost() + Heuristic.heuristic_function_2_v2(node)

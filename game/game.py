@@ -3,6 +3,8 @@ import sys
 from state.grid import Grid
 from state.pipe import Pipe
 from state.type import PipeType
+from util import Stack
+
 
 WIDTH, HEIGHT = 600, 600
 GRID_SIZE = 4
@@ -23,7 +25,7 @@ pygame.display.set_caption('puzzle pipe')
 clock = pygame.time.Clock()
 
 
-def display(grid : 'Grid'):
+def display(grid : 'Grid', action : Stack ):
     draw_grid(grid)
     running(grid)
 

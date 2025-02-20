@@ -1,7 +1,7 @@
 from search.problem import Problem
 from search.node import Node
-from search.queue import FIFOQueue
-from state.stack import Stack
+from util import Stack
+from util import FIFOQueue
 from enum import Enum
 import heapq
 
@@ -125,6 +125,7 @@ class Search:
             result = Search.depth_limit_search(problem, depth)
             if result != Result.CUTOFF:
                 return result
+        # search to limit but can't be able to find, limit -> infinity
         return Result.FAILURE
     
 

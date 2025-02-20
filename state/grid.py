@@ -1,7 +1,7 @@
 from state.type import PipeType
-from state.stack import Stack
+from util.stack import Stack
 from state.pipe import Pipe
-from search.queue import FIFOQueue
+from util import FIFOQueue
 
 
 # state
