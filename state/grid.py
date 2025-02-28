@@ -8,11 +8,16 @@ from util import FIFOQueue
 class Grid:
     def __init__(self):
         self.__grid = [[None for _ in range(4)] for _ in range(4)]
+        self.__destionation_list : list = []
+        self.__connection_factor : int = 0
 
 
     def set_pipe(self, row: int, col: int, pipe: 'Pipe'):
         if 0 <= row < 4 and 0 <= col < 4:
             self.__grid[row][col] = pipe
+            self.__connection_factor += pipe.get_number_of_flow_direction()
+            if pipe.get_type() == PipeType.D:
+                self.__destionation_list.append(pipe.get_location())
         else:
             raise IndexError("Grid position out of range")
 
@@ -36,12 +41,7 @@ class Grid:
 
 
     def get_destinations(self) -> 'list':
-        destination_list = []
-        for row in self.__grid:
-            for pipe in row:
-                if pipe.get_type() == PipeType.D:
-                    destination_list.append(pipe)
-        return destination_list
+        return self.__destionation_list
 
 
     def get_source(self) -> 'Pipe':
@@ -68,8 +68,6 @@ class Grid:
 
             for neighbour in connected_neighbours:
                 if neighbour in reached and parent[current_pipe] != neighbour:
-                    # loop
-                    # print('Loop detection')
                     return False
                 elif neighbour in reached and parent[current_pipe] == neighbour:
                     continue
@@ -80,8 +78,8 @@ class Grid:
                     parent[neighbour] = current_pipe
 
 
-        for pipe in self.get_destinations():
-            if pipe not in reached:
+        for location in self.get_destinations():
+            if self.get_pipe(location) not in reached:
                 return False
         return True
     
@@ -119,18 +117,4 @@ class Grid:
     
 
     def get_connection_factor_full(self) -> 'int':
-        connection_factor = 0
-        for row in self.get_grid():
-            for pipe in row:
-                connection_factor += pipe.get_number_of_flow_direction()
-        return connection_factor
-
-
-    # def __eq__(self, value):
-    #     if isinstance(value, 'Grid'):
-    #         for row in range(4):
-    #             for col in range(4):
-    #                 if (self.__grid[row][col] != value.get_grid()[row][col]):
-    #                     return False
-    #         return True
-    #     return False
+        return self.__connection_factor

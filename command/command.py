@@ -6,6 +6,8 @@ from util import *
 import time
 from memory_profiler import memory_usage
 from search import search
+from search import PPP
+from state import PipeTouch
 
 
 @click.group()
@@ -15,17 +17,23 @@ def cli():
 
 # python main.py solve -d 13 -a 5 -e 5 -i true -s true
 @cli.command()
-@click.option('-d', '--data',       default = 1,            required = True,    type = click.IntRange(1, 20),     help = 'The data used to run the search algorithm, in /data')
-@click.option('-a', '--algorithm',  default = 1,            required = True,    type = click.IntRange(1, 5) ,     help = 'Search algorithm including BrFS[1], DFS[2], DLS[3], IDS[4], BFS[5]')
-@click.option('-e', '--ef',                                 required = False,   type = click.IntRange(1, 9) ,     help = 'Evalution function, in /search')
-@click.option('-dp', '--depth',                              required = False,   type = int,                       help = 'The depth limit to search when using [DLS]')
+@click.option('-st', '--state',      default = 1,            required = True,    type = click.IntRange(1,2)  ,     help = 'The state representation of the game')
+@click.option('-d',  '--data',       default = 1,            required = True,    type = click.IntRange(1, 100),     help = 'The data used to run the search algorithm, in /data')
+@click.option('-a',  '--algorithm',  default = 1,            required = True,    type = click.IntRange(1, 7) ,     help = 'Search algorithm including BrFS[1], DFS[2], DLS[3], IDS[4], BFS[5]')
+@click.option('-e', '--ef',                                 required = False,   type = click.IntRange(1, 11) ,     help = 'Evalution function, in /search')
+@click.option('-dp', '--depth',                             required = False,   type = int,                       help = 'The depth limit to search when using [DLS]')
 @click.option('-l', '--limit',                              required = False,   type = int,                       help = 'The limit to search when using [IDS]')
 @click.option('-i', '--interactive',default = False,        required = False,   type = bool,                      help = 'Show interactive [UI]')
 @click.option('-s', '--statistic',  default = False,        required = False,   type = bool,                      help = 'Show [statistic]')
-def solve(data : 'int', algorithm : 'int', ef : 'int', depth : 'int', limit : 'int', interactive : 'bool', statistic : 'bool'):
+def solve(state :int, data : 'int', algorithm : 'int', ef : 'int', depth : 'int', limit : 'int', interactive : 'bool', statistic : 'bool'):
+    # todo: different state
+    if state == 1:
+        problem = Search.PipePuzzleProblem(Data.data[data]())
+        algo = Search.search_algorithm[algorithm]
+    else:
+        problem = Search.PPP(PipeTouch(Data.data[data]()))
+        algo = Search.search_algorithm[algorithm]
     # todo: initialize the problem, data and algorithm used
-    problem = Search.PipePuzzleProblem(Data.data[data]())
-    algo = Search.search_algorithm[algorithm]
     solution_node = None
     mem = None
 
@@ -39,7 +47,7 @@ def solve(data : 'int', algorithm : 'int', ef : 'int', depth : 'int', limit : 'i
         # Case BrFS
         output.print("[bold blue]:mag:Breath-First Search (BFS) is running...[/bold blue]")
         # solution_node = algo(problem)
-        mem, solution_node = memory_usage(lambda: algo(problem), retval=True)
+        mem, solution_node = memory_usage(lambda: algo(problem), retval=True, interval=0.1)
 
     elif algorithm == 2:
         # Case DFS
@@ -65,6 +73,24 @@ def solve(data : 'int', algorithm : 'int', ef : 'int', depth : 'int', limit : 'i
         evaluation_function = Search.evaluation_function[ef]
         # solution_node = algo(problem, evaluation_function)
         mem, solution_node = memory_usage(lambda: algo(problem, evaluation_function), retval=True)
+    
+    elif algorithm == 6:
+        # Case BrFS for state v2
+        output.print("[bold blue]:mag:Breadth-First search <v2> (BFS) is running...[/bold blue]")
+        mem, solution_node = memory_usage(lambda: algo(problem), retval=True)
+
+
+    elif algorithm == 7:
+        # Case DFS
+        output.print("[bold blue]:mag:Depth-First Search <v2> (DFS) is running...[/bold blue]")
+        # solution_node = algo(problem)
+        mem, solution_node = memory_usage(lambda: algo(problem), retval=True)
+
+    elif algorithm == 8 and depth is not None:
+        # Case DLS
+        output.print("[bold blue]:mag:Depth-Limit search (DLS) is running...[/bold blue]")
+        # solution_node = algo(problem, depth)
+        mem, solution_node = memory_usage(lambda: algo(problem, depth), retval=True)
 
     else:
         raise SyntaxError('Invalid options')
@@ -75,12 +101,15 @@ def solve(data : 'int', algorithm : 'int', ef : 'int', depth : 'int', limit : 'i
 
     if solution_node == Search.Result.CUTOFF:
         output.print('DLS: [red]Unable to find solution at current depth:exclamation:[/red]')
+        return
 
     elif solution_node == Search.Result.FAILURE:
         output.print('IFS: [red]Unable to find solution in range of limit:exclamation:[/red]')
+        return
 
     elif solution_node is None:
         output.print('Searching failed: [red]There might be no solution :x:[/red]')
+        return
 
     else:
         # solution found
@@ -113,7 +142,7 @@ def solve(data : 'int', algorithm : 'int', ef : 'int', depth : 'int', limit : 'i
         from sta import radar_chart
         from sta import extensive_memory_usage
         # todo: get the time and memory to create statistic
-        info = Align.center(f"""[bold cyan]:hourglass: Time:[/bold cyan] [green]{running_time}s[/green]\n[bold magenta]:brain: Memory:[/bold magenta] [yellow]{max(mem)}[/yellow]\n[bold green]:walking: Steps:[/bold green] [cyan]{steps}[/cyan]\n[bold blue]:package: Frontier Size:[/bold blue] [red]{search.frontier_size} nodes[/red]""",vertical="middle")
+        info = Align.center(f"""[white]:book: Data:[/white] [yellow]{data}[/yellow]\n[bold cyan]:hourglass: Time:[/bold cyan] [green]{running_time}s[/green]\n[bold magenta]:brain: Memory:[/bold magenta] [yellow]{max(mem)}[/yellow]\n[bold green]:walking: Steps:[/bold green] [cyan]{steps}[/cyan]\n[bold blue]:package: Frontier Size:[/bold blue] [red]{search.frontier_size} nodes[/red]""",vertical="middle")
         output.print(Panel(info, title=":pencil: Statistics :pencil:", border_style="red"))
 
         bar_chart(running_time, mem, search.frontier_size, steps)

@@ -18,9 +18,17 @@ from .data17 import data17
 from .data18 import data18
 from .data19 import data19
 from .data20 import data20
+from .data21 import data21
+from .data22 import data22
+from .data23 import data23
+from .data24 import data24
+from .data25 import data25
+
+from .datadump import data100
 
 
 data = {
+    # --------------------- Medium puzzle (can solve but take a long time)
     1: data1,
     2: data2,
     3: data3,
@@ -30,6 +38,7 @@ data = {
     7: data7,
     8: data8,
     9: data9,
+    # --------------------- Real puzzle from https://www.puzzle-pipes.com/
     10: data10,
     11: data11,
     12: data12,
@@ -40,5 +49,13 @@ data = {
     17: data17,
     18: data18,
     19: data19,
-    20: data20
+    20: data20,
+    # ---------------------- Simple puzzle (a few step)
+    21: data21,     # OK
+    22: data22,     # OK
+    23: data23,     # OK
+    24: data24,     # OK
+    25: data25,     # OK
+    # ---------------------- Sample puzzle
+    100: data100
 }
