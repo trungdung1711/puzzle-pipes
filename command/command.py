@@ -2,12 +2,10 @@
 import click
 import search as Search
 import data as Data
-import game
 from util import *
 import time
 from memory_profiler import memory_usage
 from search import search
-from sta import *
 
 
 @click.group()
@@ -15,11 +13,11 @@ def cli():
     pass
 
 
-# python main.py solve -d 13 -a 5 -e 5 -i true
+# python main.py solve -d 13 -a 5 -e 5 -i true -s true
 @cli.command()
-@click.option('-d', '--data',       default = 1,            required = True,    type = click.IntRange(1, 17),     help = 'The data used to run the search algorithm, in /data')
+@click.option('-d', '--data',       default = 1,            required = True,    type = click.IntRange(1, 20),     help = 'The data used to run the search algorithm, in /data')
 @click.option('-a', '--algorithm',  default = 1,            required = True,    type = click.IntRange(1, 5) ,     help = 'Search algorithm including BrFS[1], DFS[2], DLS[3], IDS[4], BFS[5]')
-@click.option('-e', '--ef',                                 required = False,   type = click.IntRange(1, 8) ,     help = 'Evalution function, in /search')
+@click.option('-e', '--ef',                                 required = False,   type = click.IntRange(1, 9) ,     help = 'Evalution function, in /search')
 @click.option('-dp', '--depth',                              required = False,   type = int,                       help = 'The depth limit to search when using [DLS]')
 @click.option('-l', '--limit',                              required = False,   type = int,                       help = 'The limit to search when using [IDS]')
 @click.option('-i', '--interactive',default = False,        required = False,   type = bool,                      help = 'Show interactive [UI]')
@@ -105,11 +103,15 @@ def solve(data : 'int', algorithm : 'int', ef : 'int', depth : 'int', limit : 'i
 
     if interactive is True:
         # todo: showing UI
+        import game
         game.ui(Data.data[data](), actions_ui)
 
 
     # - Show time and space information by UI
     if statistic is True:
+        from sta import bar_chart
+        from sta import radar_chart
+        from sta import extensive_memory_usage
         # todo: get the time and memory to create statistic
         info = Align.center(f"""[bold cyan]:hourglass: Time:[/bold cyan] [green]{running_time}s[/green]\n[bold magenta]:brain: Memory:[/bold magenta] [yellow]{max(mem)}[/yellow]\n[bold green]:walking: Steps:[/bold green] [cyan]{steps}[/cyan]\n[bold blue]:package: Frontier Size:[/bold blue] [red]{search.frontier_size} nodes[/red]""",vertical="middle")
         output.print(Panel(info, title=":pencil: Statistics :pencil:", border_style="red"))

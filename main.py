@@ -21,6 +21,7 @@ from util import output
 # grid15 = data15()   #                               OK [ long time]                   OK [ faster time ]               OK [ faster and better solution ]         OK [ faster and better solution ]       [ out of memory ]                      OK [ slower ]
 # grid16 = data16()   #                               OK                                OK                               OK [ faster ]                             OK                                   OK                                           [ out of memory ]
 # grid17 = data17()   #                               OK [ better solution]             OK [ better solution]            OK                                        OK                                   OK                                         OK
+# grid18 = data18()   #
 
 
 if __name__ == '__main__':

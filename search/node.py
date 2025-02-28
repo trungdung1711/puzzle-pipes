@@ -1,4 +1,4 @@
-from search.heuristic import Heuristic
+from search.heuristic import EvaluationFunction
 
 
 class Node:
@@ -50,4 +50,4 @@ class Node:
     
 
     def __lt__(self, other):
-        return Heuristic.heuristic_function_2_v0(self) < Heuristic.heuristic_function_2_v0(other)
+        return EvaluationFunction.heuristic_function_2_v0(self) < EvaluationFunction.heuristic_function_2_v0(other)

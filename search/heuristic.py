@@ -1,4 +1,4 @@
-class Heuristic:
+class EvaluationFunction:
     @staticmethod
     def heuristic_function_1_v0(node : any) -> 'float':
         '''
@@ -62,7 +62,7 @@ class Heuristic:
             goal state (no overestimate)
             - f(n): estimated cost of the best path (g(n))that continues from n to a goal (h(n))
         '''
-        return node.get_path_cost() + Heuristic.heuristic_function_2_v0(node)
+        return node.get_path_cost() + EvaluationFunction.heuristic_function_2_v0(node)
     
 
     @staticmethod
@@ -75,11 +75,11 @@ class Heuristic:
             goal state (no overestimate) - using heuristic function 2 version 1
             - f(n): estimated cost of the best path (g(n))that continues from n to a goal (h(n))
         '''
-        return node.get_path_cost() + Heuristic.heuristic_function_2_v1(node)
+        return node.get_path_cost() + EvaluationFunction.heuristic_function_2_v1(node)
     
 
     @staticmethod
-    def A_start_evaluation_function_2_v1(node : any) -> 'int':
+    def A_star_evaluation_function_2_v1(node : any) -> 'int':
         '''
             - The evaluation f(n) for A* search which is
             f(n) = g(n) + h(n)
@@ -88,4 +88,13 @@ class Heuristic:
             goal state (no overestimate) - using heuristic function 2 version 2
             - f(n): estimated cost of the best path (g(n))that continues from n to a goal (h(n))
         '''
-        return node.get_path_cost() + Heuristic.heuristic_function_2_v2(node)
+        return node.get_path_cost() + EvaluationFunction.heuristic_function_2_v2(node)
+    
+
+    @staticmethod
+    def A_star_evaluation_function_2_v2(node : any) -> 'int':
+        '''
+            - Weighted A*
+        '''
+        W = 3
+        return node.get_path_cost() + W * EvaluationFunction.heuristic_function_2_v2(node)

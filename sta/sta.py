@@ -10,7 +10,7 @@ def bar_chart(time: float, memory_usage: list, nodes: int, steps: int):
     values = [time, max(memory_usage), steps]
 
     fig, ax_left = plt.subplots(figsize=(9, 5))
-    fig.canvas.manager.set_window_title('Algorithm statistics')
+    fig.canvas.manager.set_window_title('algorithm statistics')
 
     color1 = ['blue', 'purple', 'green']
     bars1 = ax_left.bar(labels, values, color=color1, alpha=0.7, label='Metrics')
@@ -45,7 +45,7 @@ def radar_chart(time : 'float', memory_usage : 'list', nodes : 'int', steps : 'i
     angles += angles[:1]
 
     fig, ax = plt.subplots(figsize=(6, 6), subplot_kw=dict(polar=True))
-    fig.canvas.manager.set_window_title('Algorithm statistics')
+    fig.canvas.manager.set_window_title('algorithm statistics')
     ax.fill(angles, values, color='red', alpha=0.25)
     ax.plot(angles, values, color='red', linewidth=2)  
     ax.set_yticklabels([])
@@ -64,12 +64,16 @@ def extensive_memory_usage(memory_usage : 'list'):
     mem = Align.center(f"""[bold cyan]:bar_chart: min:[/bold cyan] [green]{min_mem}s[/green]\n[bold magenta]:bar_chart: max:[/bold magenta] [yellow]{max_mem}[/yellow]\n[bold green]:bar_chart: avg:[/bold green] [cyan]{avg_mem}[/cyan]""",vertical="middle")
     output.print(Panel(mem, title=":pencil: Memory analysis :pencil:", border_style="blue"))
 
-    plt.figure(figsize=(8, 4))
-    plt.plot(memory_usage, marker='o', linestyle='-', color='red', label='Memory usage')
-    plt.axhline(y=avg_mem, color='blue', linestyle='--', label=f'Avg: {avg_mem:.2f} MB')
-    plt.xlabel("Time stamps")
-    plt.ylabel("Memory (MB)")
-    plt.title("Memory Usage Over Time")
-    plt.legend()
-    plt.grid(True)
+    fig, ax = plt.subplots(figsize=(8, 4))
+    fig.canvas.manager.set_window_title("memory usage analysis")
+
+    ax.plot(memory_usage, marker='o', linestyle='-', color='red', label='Memory usage')
+    ax.axhline(y=avg_mem, color='blue', linestyle='--', label=f'Avg: {avg_mem:.2f} MB')
+    
+    ax.set_xlabel("Time Stamps")
+    ax.set_ylabel("Memory (MB)")
+    ax.set_title("Memory Usage Over Time")
+    ax.legend()
+    ax.grid(True)
+
     plt.show()

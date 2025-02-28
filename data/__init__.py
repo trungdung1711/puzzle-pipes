@@ -15,6 +15,9 @@ from .data14 import data14
 from .data15 import data15
 from .data16 import data16
 from .data17 import data17
+from .data18 import data18
+from .data19 import data19
+from .data20 import data20
 
 
 data = {
@@ -34,5 +37,8 @@ data = {
     14: data14,
     15: data15,
     16: data16,
-    17: data17
+    17: data17,
+    18: data18,
+    19: data19,
+    20: data20
 }
