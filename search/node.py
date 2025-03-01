@@ -1,4 +1,4 @@
-from search.heuristic import Heuristic
+from search.evalfunction import EvaluationFunction
 
 
 class Node:
@@ -39,15 +39,7 @@ class Node:
 
     def set_path_cost(self, path_cost: 'int'):
         self.__path_cost = path_cost
-
-
-    def set_peek(self):
-        self.__is_peek = True
-
-
-    def get_peek(self):
-        return self.__is_peek
     
 
     def __lt__(self, other):
-        return Heuristic.heuristic_function_2_v0(self) < Heuristic.heuristic_function_2_v0(other)
+        return True

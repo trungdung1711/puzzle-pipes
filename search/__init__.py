@@ -1,30 +1,45 @@
 from .search import Search
-from .heuristic import Heuristic
+from .evalfunction import EvaluationFunction
 from .ppproblem import PipePuzzleProblem
 from .search import Result
+from .ppproblem import PPP
 
 
 search_algorithm = {
     1 : Search.breadth_first_search,
-    2 : Search.depth_first_search,
-    3 : Search.depth_limit_search,
+    2 : Search.depth_first_search_s1,
+    3 : Search.depth_limit_search_s1,
     4 : Search.iterative_deepening_search,
-    5 : Search.best_first_search
+    5 : Search.best_first_search,
+
+    6 : Search.depth_first_search_s2,
+    7 : Search.depth_limit_search_s2
 }
 
 
 evaluation_function = {
-    # Using the number of wet pipes
-    1 : Heuristic.heuristic_function_1_v0, # negative
-    2 : Heuristic.heuristic_function_1_v1, # 1 / number
+    1 : EvaluationFunction.s1_hn_minus_number_of_wet_pipe,
+    2 : EvaluationFunction.s1_hn_one_over_number_wet_pipe,
+    3 : EvaluationFunction.s1_hn_minus_number_of_connection_factor,
+    4 : EvaluationFunction.s1_hn_one_over_connection_factor,
+    5 : EvaluationFunction.s1_hn_remain_cost_based_on_connection_factor,
 
-    # Using the number of connection factor
-    3 : Heuristic.heuristic_function_2_v0, # negative
-    4 : Heuristic.heuristic_function_2_v1, # 1 / number
 
-    5 : Heuristic.heuristic_function_2_v2, # goal - current
-        # Using the connection factor
-    6 : Heuristic.A_star_evaluation_function_1_v0, # positive + negative
-    7 : Heuristic.A_star_evaluation_function_2_v0, # positive + 1 / number
-    8 : Heuristic.A_start_evaluation_function_2_v1 # postitive + goal - current
+    6 : EvaluationFunction.s1_fn_path_cost_and_minus_number_of_connection_factor,
+    7 : EvaluationFunction.s1_fn_path_cost_and_one_over_connection_factor,
+    8 : EvaluationFunction.s1_fn_path_cost_and_remain_cost_based_on_connection_factor,
+    9 : EvaluationFunction.s1_fn_path_cost_and_w_remain_cost_based_on_connection_factor,
+
+
+    # not heuristic
+    10: EvaluationFunction.s2_hn_remain_cost_based_on_connection_factor,
+    11: EvaluationFunction.s2_fn_path_cost_and_w_remain_cost_based_on_connection_factor,
+
+    12: EvaluationFunction.s2_hn_number_of_unwet_pipe,
+    13: EvaluationFunction.s2_fn_path_cost_and_number_of_unwet_pipe,
+
+    # may consider heuristic
+    14: EvaluationFunction.s2_hn_estimated_remain_cost_state_to_goal,
+    15: EvaluationFunction.s2_fn_path_cost_and_estimated_remain_cost_state_to_goal,
+    16: EvaluationFunction.s2_fn_path_cost_and_weighted_estimated_remain_cost_state_to_goal
 }

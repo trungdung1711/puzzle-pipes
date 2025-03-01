@@ -15,24 +15,49 @@ from .data14 import data14
 from .data15 import data15
 from .data16 import data16
 from .data17 import data17
+from .data18 import data18
+from .data19 import data19
+from .data20 import data20
+from .data21 import data21
+from .data22 import data22
+from .data23 import data23
+from .data24 import data24
+from .data25 import data25
+from .datas import datas
+
+from .datadump import data100
 
 
 data = {
-    1: data1,
-    2: data2,
-    3: data3,
-    4: data4,
-    5: data5,
-    6: data6,
-    7: data7,
-    8: data8,
-    9: data9,
-    10: data10,
-    11: data11,
-    12: data12,
-    13: data13,
+    # --------------------- Medium puzzle (can solve but take a long time)
+    1: data1,   #       OK
+    2: data2,   #       OK
+    3: data3,   # OK    OK
+    4: data4,   #       OK
+    5: data5,   #       OK
+    6: data6,   # OK    OK
+    7: data7,   #       OK
+    8: data8,   #       OK
+    9: data9,   #       OK
+    # --------------------- Real puzzle from https://www.puzzle-pipes.com/
+    10: data10, #       OK
+    11: data11, #       OK
+    12: data12, # OK    OK
+    13: data13, #       OK
     14: data14,
     15: data15,
     16: data16,
-    17: data17
+    17: data17,
+    18: data18,
+    19: data19,
+    20: data20,
+    # ---------------------- Simple puzzle (a few step)
+    21: data21,     # OK
+    22: data22,     # OK    OK
+    23: data23,     # OK
+    24: data24,     # OK
+    25: data25,     # OK
+    100 : datas,
+    # ---------------------- Sample puzzle
+    1000: data100
 }

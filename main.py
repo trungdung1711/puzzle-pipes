@@ -21,10 +21,14 @@ from util import output
 # grid15 = data15()   #                               OK [ long time]                   OK [ faster time ]               OK [ faster and better solution ]         OK [ faster and better solution ]       [ out of memory ]                      OK [ slower ]
 # grid16 = data16()   #                               OK                                OK                               OK [ faster ]                             OK                                   OK                                           [ out of memory ]
 # grid17 = data17()   #                               OK [ better solution]             OK [ better solution]            OK                                        OK                                   OK                                         OK
+# grid18 = data18()   #
+# grid19 = data19()
+# grid20 = data20()
+# grid21 = data21()
 
 
 if __name__ == '__main__':
     try:
         cli()
     except Exception as e:
-        output.print(f'Searching Error: [red]{str(e)}[/red] :x:')
+        output.print(f'[yellow]Searching Error[/yellow]: [red]{str(e)}[/red] :x:')

@@ -1,4 +1,5 @@
 from search.problem import Problem
+from .ppproblem import PPP
 from search.node import Node
 from util import Stack
 from util import FIFOQueue
@@ -50,7 +51,7 @@ class Search:
         reached.add(node.get_state().to_tuple())
 
         while not frontier.is_empty():
-            print(f'Number of nodes in frontier: {frontier.size()}')
+            # print(f'Number of nodes in frontier: {frontier.size()}')
 
             node = frontier.pop()
             for child in Search.expand(problem, node):
@@ -65,7 +66,7 @@ class Search:
     
 
     @staticmethod
-    def depth_first_search(problem : Problem) -> 'Node':
+    def depth_first_search_s1(problem : Problem) -> 'Node':
         global frontier_size
 
         node = Node(problem.get_initial(), None, None, 0)
@@ -78,7 +79,7 @@ class Search:
         reached.add(node.get_state().to_tuple())
 
         while not frontier.is_empty():
-            print(f'Number of nodes in frontier: {frontier.size()}')
+            # print(f'Number of nodes in frontier: {frontier.size()}')
 
             node = frontier.pop()
             for child in reversed(Search.expand(problem, node)):
@@ -88,6 +89,34 @@ class Search:
                 if child.get_state().to_tuple() not in reached:
                     reached.add(child.get_state().to_tuple())
                     frontier.push(child)
+        return None
+    
+
+    @staticmethod
+    def depth_first_search_s2(problem : Problem) -> 'Node':
+        global frontier_size
+
+        node = Node(problem.get_initial(), None, None, 0)
+
+        if problem.is_goal(node.get_state()):
+            return node
+        frontier = Stack()
+        frontier.push(node)
+        # reached = set()
+        # reached.add(node.get_state().to_tuple())
+
+        while not frontier.is_empty():
+            # print(f'Number of nodes in frontier: {frontier.size()}')
+
+            node = frontier.pop()
+            for child in Search.expand(problem, node):
+                if problem.is_goal(child.get_state()):
+                    frontier_size = frontier.size()
+                    return child
+                # if child.get_state().to_tuple() not in reached:
+                #     reached.add(child.get_state().to_tuple())
+                #     frontier.push(child)
+                frontier.push(child)
         return None
     
 
@@ -103,7 +132,7 @@ class Search:
     
 
     @staticmethod
-    def depth_limit_search(problem: Problem, l : int):
+    def depth_limit_search_s1(problem: Problem, l : int):
         global frontier_size
 
         node = Node(problem.get_initial(), None, None, 0)
@@ -112,7 +141,7 @@ class Search:
         result = Result.FAILURE
 
         while not frontier.is_empty():
-            print(f'Number of nodes in frontier: {frontier.size()}')
+            # print(f'Number of nodes in frontier: {frontier.size()}')
             node = frontier.pop()
             if problem.is_goal(node.get_state()):
                 frontier_size = frontier.size()
@@ -128,10 +157,36 @@ class Search:
     
 
     @staticmethod
+    def depth_limit_search_s2(problem: Problem, l : int):
+        global frontier_size
+
+        node = Node(problem.get_initial(), None, None, 0)
+        frontier = Stack()
+        frontier.push(node)
+        result = Result.FAILURE
+
+        while not frontier.is_empty():
+            # print(f'Number of nodes in frontier: {frontier.size()}')
+            node = frontier.pop()
+            if problem.is_goal(node.get_state()):
+                frontier_size = frontier.size()
+                return node
+            if Search.depth(node) > l:
+                # there can be solution at deeper depth
+                # doesn't add any child node
+                result = Result.CUTOFF
+            # elif not Search.is_cycle(node):
+            else:
+                for child in reversed(Search.expand(problem, node)):
+                    frontier.push(child)
+        return result
+    
+
+    @staticmethod
     def iterative_deepening_search(problem : Problem, limit : int):
         for depth in range(limit):
             print(f'At depth {depth}')
-            result = Search.depth_limit_search(problem, depth)
+            result = Search.depth_limit_search_s1(problem, depth)
             if result != Result.CUTOFF:
                 return result
         # search to limit but can't be able to find, limit -> infinity
@@ -150,7 +205,7 @@ class Search:
         reached[node.get_state().to_tuple()] = node
 
         while not (len(frontier) == 0):
-            print(f'Number of nodes in frontier: {len(frontier)}')
+            # print(f'Number of nodes in frontier: {len(frontier)}')
             _, node = heapq.heappop(frontier)
             if problem.is_goal(node.get_state()):
                 frontier_size = len(frontier)
