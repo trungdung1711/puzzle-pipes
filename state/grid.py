@@ -2,6 +2,7 @@ from state.type import PipeType
 from util.stack import Stack
 from state.pipe import Pipe
 from util import FIFOQueue
+from state.direction import Direction
 
 
 # state
@@ -82,6 +83,33 @@ class Grid:
             if self.get_pipe(location) not in reached:
                 return False
         return True
+    
+
+    def is_loop(self) -> bool:
+        stack = Stack()
+        reached = set()
+        parent = {}
+
+        # initialisation
+        stack.push(self.get_source())
+        reached.add(self.get_source())
+        parent[self.get_source()] = None
+
+        while not stack.is_empty():
+            current_pipe = stack.pop()
+            connected_neighbours = current_pipe.get_connected_pipes(self)
+
+            for neighbour in connected_neighbours:
+                if neighbour in reached and parent[current_pipe] != neighbour:
+                    return True
+                elif neighbour in reached and parent[current_pipe] == neighbour:
+                    continue
+                else:
+                    stack.push(neighbour)
+                    reached.add(neighbour)
+
+                    parent[neighbour] = current_pipe
+            return False
     
 
     def pump_water(self) -> 'int':

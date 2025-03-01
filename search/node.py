@@ -39,14 +39,6 @@ class Node:
 
     def set_path_cost(self, path_cost: 'int'):
         self.__path_cost = path_cost
-
-
-    def set_peek(self):
-        self.__is_peek = True
-
-
-    def get_peek(self):
-        return self.__is_peek
     
 
     def __lt__(self, other):

@@ -47,21 +47,21 @@ class PipeTouch:
         self.__grid : Grid = grid
 
 
-    def getTouch(self) -> Dict[int, int]:
+    def get_touch(self) -> Dict[int, int]:
         return self.__touch
     
 
-    def getGrid(self) -> Grid:
+    def get_grid(self) -> Grid:
         return self.__grid
     
 
     def is_goal_state(self) -> bool:
-        return self.getGrid().is_goal_state()
+        return self.get_grid().is_goal_state()
     
 
     def touch(self, location : Tuple[int, int]):
-        self.getTouch()[location] = (self.getTouch()[location] + 1) % 4
-        self.getGrid().get_pipe(location).right_rotate()
+        self.get_touch()[location] = (self.get_touch()[location] + 1) % 4
+        self.get_grid().get_pipe(location).right_rotate()
 
 
     def to_tuple(self) -> Tuple:

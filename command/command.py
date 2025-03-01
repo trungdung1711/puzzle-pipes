@@ -20,7 +20,7 @@ def cli():
 @click.option('-st', '--state',      default = 1,            required = True,    type = click.IntRange(1,2)  ,     help = 'The state representation of the game')
 @click.option('-d',  '--data',       default = 1,            required = True,    type = click.IntRange(1, 100),     help = 'The data used to run the search algorithm, in /data')
 @click.option('-a',  '--algorithm',  default = 1,            required = True,    type = click.IntRange(1, 7) ,     help = 'Search algorithm including BrFS[1], DFS[2], DLS[3], IDS[4], BFS[5]')
-@click.option('-e', '--ef',                                 required = False,   type = click.IntRange(1, 11) ,     help = 'Evalution function, in /search')
+@click.option('-e', '--ef',                                 required = False,   type = click.IntRange(1, 20) ,     help = 'Evalution function, in /search')
 @click.option('-dp', '--depth',                             required = False,   type = int,                       help = 'The depth limit to search when using [DLS]')
 @click.option('-l', '--limit',                              required = False,   type = int,                       help = 'The limit to search when using [IDS]')
 @click.option('-i', '--interactive',default = False,        required = False,   type = bool,                      help = 'Show interactive [UI]')
@@ -79,7 +79,6 @@ def solve(state :int, data : 'int', algorithm : 'int', ef : 'int', depth : 'int'
         output.print("[bold blue]:mag:Breadth-First search <v2> (BFS) is running...[/bold blue]")
         mem, solution_node = memory_usage(lambda: algo(problem), retval=True)
 
-
     elif algorithm == 7:
         # Case DFS
         output.print("[bold blue]:mag:Depth-First Search <v2> (DFS) is running...[/bold blue]")
@@ -130,20 +129,20 @@ def solve(state :int, data : 'int', algorithm : 'int', ef : 'int', depth : 'int'
             location = actions.pop()
             output.print(f'Click the pipe at location [yellow]({location[0]}, {location[1]})[/yellow]')
 
+    # normal data
+    info = Align.center(f"""[white]:book: Data:[/white] [yellow]{data}[/yellow]\n[bold cyan]:hourglass: Time:[/bold cyan] [green]{running_time}s[/green]\n[bold magenta]:brain: Memory:[/bold magenta] [yellow]{max(mem)}[/yellow]\n[bold green]:walking: Steps:[/bold green] [cyan]{steps}[/cyan]\n[bold blue]:package: Frontier Size:[/bold blue] [red]{search.frontier_size} nodes[/red]""",vertical="middle")
+    output.print(Panel(info, title=":pencil: Statistics :pencil:", border_style="red"))
+
     if interactive is True:
         # todo: showing UI
         import game
         game.ui(Data.data[data](), actions_ui)
-
 
     # - Show time and space information by UI
     if statistic is True:
         from sta import bar_chart
         from sta import radar_chart
         from sta import extensive_memory_usage
-        # todo: get the time and memory to create statistic
-        info = Align.center(f"""[white]:book: Data:[/white] [yellow]{data}[/yellow]\n[bold cyan]:hourglass: Time:[/bold cyan] [green]{running_time}s[/green]\n[bold magenta]:brain: Memory:[/bold magenta] [yellow]{max(mem)}[/yellow]\n[bold green]:walking: Steps:[/bold green] [cyan]{steps}[/cyan]\n[bold blue]:package: Frontier Size:[/bold blue] [red]{search.frontier_size} nodes[/red]""",vertical="middle")
-        output.print(Panel(info, title=":pencil: Statistics :pencil:", border_style="red"))
 
         bar_chart(running_time, mem, search.frontier_size, steps)
         radar_chart(running_time, mem, search.frontier_size, steps)
