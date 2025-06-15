@@ -1,6 +1,3 @@
-from search.evalfunction import EvaluationFunction
-
-
 class Node:
     def __init__(self, state: 'any', parent: 'Node', action: 'any', path_cost: int):
         self.__state = state

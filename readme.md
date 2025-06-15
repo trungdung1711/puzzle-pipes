@@ -12,11 +12,11 @@ This project is a Python-based solver (search algorithm) for pipe puzzles. The s
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/trungdung1711/pipe-puzzle-search-algorithm.git
+    git clone https://github.com/trungdung1711/puzzle-pipes.git
     ```
 2. Navigate to the project directory:
     ```sh
-    cd /pipe-puzzle-search-algorithm
+    cd ./puzzle-pipes
     ```
 3. Install the required dependencies:
     ```sh
